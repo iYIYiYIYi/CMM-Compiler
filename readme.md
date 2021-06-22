@@ -1,5 +1,6 @@
 # 编译原理课程设计  
-C-- :C语言魔改子集的实现
+C-- :C语言魔改子集的实现  
+使用JavaCC作为语法及词法分析工具，生成LLVM IR ,然后转义为native
 
 Token List:
 
@@ -63,5 +64,3 @@ factor:LS exp RS | NUM | ID
 
 ```
 
-
-使用JavaCC作为语法及词法分析工具，生成LLVM IR ,然后转义为native
