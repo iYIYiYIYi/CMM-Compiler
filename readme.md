@@ -34,10 +34,9 @@ Token List:
 
 语法：
 ```cpp
-program: pro_stmt;
-pro_stmt:imp_stmt stmt_seq
+program: imp_stmt stmt_seq
 stmt_seq:ID LS arg_stmt RS LB fun_stmt RB stmt_seq
-                | arg_stmt
+                | arg_stmt stmt_seq
                 | ε              
 imp_stmt:IMPORT PACKAGE imp_stmt
                 | ε
