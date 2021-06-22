@@ -29,16 +29,23 @@ Token List:
 | LS     | 操作符 | (             |
 | RS     | 操作符 | ）            |
 | SEM     | 操作符 | ,            |
+| PACKAGE     | 操作符 | package            |
 
 
 语法：
 ```cpp
-program: stmt_seq;
-stmt_seq:ID LS arg_stmt RS LB fun_stmt RB
-                |arg_stmt
+program: pro_stmt;
+pro_stmt:imp_stmt stmt_seq
+stmt_seq:ID LS arg_stmt RS LB fun_stmt RB stmt_seq
+                | arg_stmt
+                | ε              
+imp_stmt:IMPORT PACKAGE imp_stmt
+                | ε
 fun_stmt: stmt fun_stmt
-                |ε
-arg_stmt : ID SEM arg_stmt | ID
+                | ε
+arg_stmt : ID SEM arg_stmt 
+                | ID 
+                | ε
 stmt: if_stmt
                 |loop_stmt
                 |ass_stmt
