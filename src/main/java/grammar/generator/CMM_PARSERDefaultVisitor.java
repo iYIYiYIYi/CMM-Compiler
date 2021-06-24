@@ -15,9 +15,6 @@ public class CMM_PARSERDefaultVisitor implements CMM_PARSERVisitor{
   public Object visit(ASTstmt_seq node, Object data){
     return defaultVisit(node, data);
   }
-  public Object visit(ASTstmt_seq1 node, Object data){
-    return defaultVisit(node, data);
-  }
   public Object visit(ASTarg_stmt node, Object data){
     return defaultVisit(node, data);
   }
@@ -79,4 +76,4 @@ public class CMM_PARSERDefaultVisitor implements CMM_PARSERVisitor{
     return defaultVisit(node, data);
   }
 }
-/* JavaCC - OriginalChecksum=27d2cb24033cdd4f29bad0e57f3ac2f8 (do not edit this line) */
+/* JavaCC - OriginalChecksum=27e3eb5c282c6fd3a0be9086894761a8 (do not edit this line) */

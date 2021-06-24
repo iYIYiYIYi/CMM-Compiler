@@ -5,33 +5,31 @@ public interface CMM_PARSERTreeConstants
 {
   public int JJTPROGRAM = 0;
   public int JJTSTMT_SEQ = 1;
-  public int JJTSTMT_SEQ1 = 2;
-  public int JJTARG_STMT = 3;
-  public int JJTFUN_STMT = 4;
-  public int JJTSTMT = 5;
-  public int JJTCALL_STMT = 6;
-  public int JJTIF_STMT = 7;
-  public int JJTASS_STMT = 8;
-  public int JJTLOOP_STMT = 9;
-  public int JJTRETURN_STMT = 10;
-  public int JJTEXP = 11;
-  public int JJTSIMPLE_EXP = 12;
-  public int JJTSIMPLE_EXP1 = 13;
-  public int JJTSUB = 14;
-  public int JJTADD = 15;
-  public int JJTTERM = 16;
-  public int JJTTERM1 = 17;
-  public int JJTDIV = 18;
-  public int JJTMUL = 19;
-  public int JJTFACTOR = 20;
-  public int JJTNUM = 21;
-  public int JJTEPSILON = 22;
+  public int JJTARG_STMT = 2;
+  public int JJTFUN_STMT = 3;
+  public int JJTSTMT = 4;
+  public int JJTCALL_STMT = 5;
+  public int JJTIF_STMT = 6;
+  public int JJTASS_STMT = 7;
+  public int JJTLOOP_STMT = 8;
+  public int JJTRETURN_STMT = 9;
+  public int JJTEXP = 10;
+  public int JJTSIMPLE_EXP = 11;
+  public int JJTSIMPLE_EXP1 = 12;
+  public int JJTSUB = 13;
+  public int JJTADD = 14;
+  public int JJTTERM = 15;
+  public int JJTTERM1 = 16;
+  public int JJTDIV = 17;
+  public int JJTMUL = 18;
+  public int JJTFACTOR = 19;
+  public int JJTNUM = 20;
+  public int JJTEPSILON = 21;
 
 
   public String[] jjtNodeName = {
     "program",
     "stmt_seq",
-    "stmt_seq1",
     "arg_stmt",
     "fun_stmt",
     "stmt",
@@ -54,4 +52,4 @@ public interface CMM_PARSERTreeConstants
     "epsilon",
   };
 }
-/* JavaCC - OriginalChecksum=01bc141840e7708c5dc79f2815dcea07 (do not edit this line) */
+/* JavaCC - OriginalChecksum=49d74d50b243ad185eb6c2518f0905ca (do not edit this line) */

@@ -117,16 +117,17 @@ void stmt_seq() :
 {/*@bgen(jjtree) stmt_seq */
     try {
 /*@egen*/
-    
-    id = <ID> <LS> (arg_stmt() <RS> "->" <LB> fun_stmt() <RB> stmt_seq1() | <RS> "->" <LB> fun_stmt() <RB> stmt_seq1())/*@bgen(jjtree)*/
-                                                                                                                        {
-                                                                                                                          jjtree.closeNodeScope(jjtn000, true);
-                                                                                                                          jjtc000 = false;
-                                                                                                                        }
+
+    id = <ID> <LS> (arg_stmt() <RS> "->" <LB> fun_stmt() <RB> stmt_seq() | <RS> "->" <LB> fun_stmt() <RB> stmt_seq())/*@bgen(jjtree)*/
+                                                                                                                      {
+                                                                                                                        jjtree.closeNodeScope(jjtn000, true);
+                                                                                                                        jjtc000 = false;
+                                                                                                                      }
 /*@egen*/ {
         jjtn000.value = id.image;
         Main.functions.add(id.image);
-    }/*@bgen(jjtree)*/
+    }
+    |<EOF>/*@bgen(jjtree)*/
     } catch (Throwable jjte000) {
       if (jjtc000) {
         jjtree.clearNodeScope(jjtn000);
@@ -150,38 +151,6 @@ void stmt_seq() :
 
 }
 
-void stmt_seq1() :
-{/*@bgen(jjtree) stmt_seq1 */
-  ASTstmt_seq1 jjtn000 = new ASTstmt_seq1(JJTSTMT_SEQ1);
-  boolean jjtc000 = true;
-  jjtree.openNodeScope(jjtn000);
-/*@egen*/}
-{/*@bgen(jjtree) stmt_seq1 */
-    try {
-/*@egen*/
-    stmt_seq()
-    |epsilon()/*@bgen(jjtree)*/
-    } catch (Throwable jjte000) {
-      if (jjtc000) {
-        jjtree.clearNodeScope(jjtn000);
-        jjtc000 = false;
-      } else {
-        jjtree.popNode();
-      }
-      if (jjte000 instanceof RuntimeException) {
-        throw (RuntimeException)jjte000;
-      }
-      if (jjte000 instanceof ParseException) {
-        throw (ParseException)jjte000;
-      }
-      throw (Error)jjte000;
-    } finally {
-      if (jjtc000) {
-        jjtree.closeNodeScope(jjtn000, true);
-      }
-    }
-/*@egen*/
-}
 
 void arg_stmt() :
 {/*@bgen(jjtree) arg_stmt */

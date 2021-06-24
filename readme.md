@@ -18,7 +18,7 @@ Token List:
 | MUL    | 操作符 | *             |
 | DIV    | 操作符 | /             |
 | MOD    | 操作符 | %             |
-| AB     | 操作符 | >            |
+| AB     | 操作符 | \>            |
 | BL     | 操作符 | <            |
 | ASS     | 操作符 | =            |
 | EQ     | 操作符 | ==            |
@@ -34,37 +34,50 @@ Token List:
 语法：
 ```cpp
 program: stmt_seq
+
 stmt_seq:ID LS RS -> LB fun_stmt RB stmt_seq 
                 |ID LS arg_stmt RS -> LB fun_stmt RB stmt_seq
-                |arg_stmt stmt_seq
                 |ε
+                
 fun_stmt: stmt fun_stmt
+
 arg_stmt : ID SEM arg_stmt | ID
-stmt: if_stmt
+
+stmt:            if_stmt
                 |loop_stmt
                 |ass_stmt
                 |return_stmt
                 |call_stmt
+                
 call_stmt : ID LS arg_stmt RS
+
 if_stmt: IF : exp LB stmt RB 
-                | IF : exp LB stmt RB ELSE LB stmt RB
+
 ass_stmt: ID ASS exp
+
 loop_stmt:WHILE : exp LB stmt RB
+
 return_stmt: RETURN exp
-exp	: simple_exp BL simple_exp
+
+exp : simple_exp BL simple_exp
 		| simple_exp EQ simple_exp
 		| simple_exp AB simple_exp
 		| simple_exp
 
 simple_exp: term simple_exp`
+
 simple_exp`: SUB term simple_exp` 
-        | ε
+                | ε
+        
 term: factor term`
+
 term`: DIV factor term` 
-        | ε
+                | ε
+        
 term : term MUL factor
 		| term DIV factor
 		| factor
+		
 factor:LS exp RS | NUM | ID
 
 

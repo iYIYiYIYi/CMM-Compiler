@@ -6,7 +6,6 @@ public interface CMM_PARSERVisitor
   public Object visit(SimpleNode node, Object data);
   public Object visit(ASTprogram node, Object data);
   public Object visit(ASTstmt_seq node, Object data);
-  public Object visit(ASTstmt_seq1 node, Object data);
   public Object visit(ASTarg_stmt node, Object data);
   public Object visit(ASTfun_stmt node, Object data);
   public Object visit(ASTstmt node, Object data);
@@ -28,4 +27,4 @@ public interface CMM_PARSERVisitor
   public Object visit(ASTNUM node, Object data);
   public Object visit(ASTepsilon node, Object data);
 }
-/* JavaCC - OriginalChecksum=d5a25f8e742657ca1e744f23bf57201c (do not edit this line) */
+/* JavaCC - OriginalChecksum=1c5f47fe3e3ba8234cc6d5b08565b071 (do not edit this line) */

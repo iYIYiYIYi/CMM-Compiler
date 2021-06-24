@@ -82,19 +82,14 @@ void stmt_seq() :
 }
 {
 
-    id = <ID> <LS> (arg_stmt() <RS> "->" <LB> fun_stmt() <RB> stmt_seq1() | <RS> "->" <LB> fun_stmt() <RB> stmt_seq1()) {
+    id = <ID> <LS> (arg_stmt() <RS> "->" <LB> fun_stmt() <RB> stmt_seq() | <RS> "->" <LB> fun_stmt() <RB> stmt_seq()) {
         jjtThis.value = id.image;
         Main.functions.add(id.image);
     }
+    |<EOF>
 
 }
 
-void stmt_seq1() :
-{}
-{
-    stmt_seq()
-    |epsilon()
-}
 
 void arg_stmt() :
 {Token id;}
