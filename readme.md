@@ -36,7 +36,7 @@ Token List:
 program: stmt_seq
 stmt_seq:ID LS RS LB fun_stmt RB stmt_seq 
                 |ID LS arg_stmt RS LB fun_stmt RB stmt_seq
-                |arg_stmt stmt_eq
+                |arg_stmt stmt_seq
                 |ε
 fun_stmt: stmt fun_stmt
              
@@ -46,7 +46,7 @@ stmt: if_stmt
                 |ass_stmt
                 |return_stmt
                 |call_stmt
-call_stmt : ID LS arg_stmt
+call_stmt : ID LS arg_stmt RS
 if_stmt: IF LS exp RS LB stmt RB 
                 | IF LS exp RS LB stmt RB ELSE LB stmt RB
 ass_stmt: ID ASS exp

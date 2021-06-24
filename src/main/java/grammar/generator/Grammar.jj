@@ -13,6 +13,7 @@ class CMM_PARSER {
     public static void main(String[] args) throws ParseException{
         CMM_PARSER parser = new CMM_PARSER(System.in);
         parser.program();
+
     }
 
 }
@@ -61,7 +62,7 @@ TOKEN : {
 TOKEN : {
 <ID : ["a"-"z","A"-"Z","_"](["a"-"z","A"-"Z","_","0"-"9"])*>
 |<NUM : (< DIGIT >)+ >
-| < #DIGIT : [ "0"-"9" ] >
+| < #DIGIT : [ "0"-"9" ]>
 }
 
 void program () :
@@ -71,11 +72,20 @@ void program () :
 }
 
 void stmt_seq() :
-{}
 {
-    <ID> <LS> (arg_stmt() <RS> <LB> fun_stmt() <RB> stmt_seq() | <RS> <LB> fun_stmt() <RB> stmt_seq())
-    |arg_stmt() stmt_seq()
+    Token id = null;
+    System.out.println("stmt_seq clause");
+}
+{
+    <ID>
+    {
+
+       System.out.println(id.getValue());
+    } <LS> (arg_stmt() <RS> <LB> fun_stmt() <RB> stmt_seq() | <RS> <LB> fun_stmt() <RB> stmt_seq())
+    |arg_stmt() ";" stmt_seq()
+    |ass_stmt() stmt_seq()
     |epsilon()
+
 }
 
 void arg_stmt() :
@@ -88,7 +98,8 @@ void arg_stmt() :
 void fun_stmt() :
 {}
 {
-    stmt() fun_stmt() | epsilon()
+    stmt() fun_stmt()
+    | epsilon()
 }
 
 void stmt() :
@@ -98,12 +109,23 @@ void stmt() :
     | loop_stmt()
     | ass_stmt()
     | return_stmt()
+    | call_stmt()
+}
+
+void call_stmt():
+{
+
+}
+{
+    <ID> <LS> (arg_stmt()|epsilon()) <RS> ";"
 }
 
 void if_stmt() :
-{}
 {
-    <IF><LS> exp() <RS><LB> (stmt()|epsilon()) <RB>(epsilon() |  <ELSE> <LB> stmt() <RB>)
+    System.out.println("if clause");
+}
+{
+    <IF><LS> exp() <RS><LB> (stmt()|epsilon()) <RB> (<ELSE> <LB> (stmt()|epsilon()) <RB> | epsilon() )
 }
 
 void ass_stmt() :

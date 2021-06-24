@@ -8,15 +8,18 @@ class CMM_PARSER implements CMM_PARSERConstants {
     public static void main(String[] args) throws ParseException{
         CMM_PARSER parser = new CMM_PARSER(System.in);
         parser.program();
+
     }
 
   static final public void program() throws ParseException {
     stmt_seq();
 }
 
-  static final public void stmt_seq() throws ParseException {
+  static final public void stmt_seq() throws ParseException {Token id = null;
+    System.out.println("stmt_seq clause");
     if (jj_2_3(2)) {
-      jj_consume_token(ID);
+      id = jj_consume_token(ID);
+System.out.println(id.getValue());
       jj_consume_token(LS);
       if (jj_2_1(2)) {
         arg_stmt();
@@ -37,6 +40,10 @@ class CMM_PARSER implements CMM_PARSERConstants {
       }
     } else if (jj_2_4(2)) {
       arg_stmt();
+      jj_consume_token(30);
+      stmt_seq();
+    } else if (jj_2_5(2)) {
+      ass_stmt();
       stmt_seq();
     } else {
       epsilon();
@@ -44,11 +51,11 @@ class CMM_PARSER implements CMM_PARSERConstants {
 }
 
   static final public void arg_stmt() throws ParseException {
-    if (jj_2_5(2)) {
+    if (jj_2_6(2)) {
       jj_consume_token(ID);
       jj_consume_token(SEM);
       arg_stmt();
-    } else if (jj_2_6(2)) {
+    } else if (jj_2_7(2)) {
       jj_consume_token(ID);
     } else {
       jj_consume_token(-1);
@@ -57,7 +64,7 @@ class CMM_PARSER implements CMM_PARSERConstants {
 }
 
   static final public void fun_stmt() throws ParseException {
-    if (jj_2_7(2)) {
+    if (jj_2_8(2)) {
       stmt();
       fun_stmt();
     } else {
@@ -66,33 +73,58 @@ class CMM_PARSER implements CMM_PARSERConstants {
 }
 
   static final public void stmt() throws ParseException {
-    if (jj_2_8(2)) {
+    if (jj_2_9(2)) {
       if_stmt();
-    } else if (jj_2_9(2)) {
-      loop_stmt();
     } else if (jj_2_10(2)) {
-      ass_stmt();
+      loop_stmt();
     } else if (jj_2_11(2)) {
+      ass_stmt();
+    } else if (jj_2_12(2)) {
       return_stmt();
+    } else if (jj_2_13(2)) {
+      call_stmt();
     } else {
       jj_consume_token(-1);
       throw new ParseException();
     }
 }
 
-  static final public void if_stmt() throws ParseException {
+  static final public void call_stmt() throws ParseException {
+    jj_consume_token(ID);
+    jj_consume_token(LS);
+    if (jj_2_14(2)) {
+      arg_stmt();
+    } else {
+      epsilon();
+    }
+    jj_consume_token(RS);
+    jj_consume_token(30);
+}
+
+  static final public void if_stmt() throws ParseException {System.out.println("if clause");
     jj_consume_token(IF);
     jj_consume_token(LS);
     exp();
     jj_consume_token(RS);
     jj_consume_token(LB);
-    if (jj_2_12(2)) {
+    if (jj_2_15(2)) {
       stmt();
     } else {
       epsilon();
     }
     jj_consume_token(RB);
-    epsilon();
+    if (jj_2_17(2)) {
+      jj_consume_token(ELSE);
+      jj_consume_token(LB);
+      if (jj_2_16(2)) {
+        stmt();
+      } else {
+        epsilon();
+      }
+      jj_consume_token(RB);
+    } else {
+      epsilon();
+    }
 }
 
   static final public void ass_stmt() throws ParseException {
@@ -108,7 +140,7 @@ class CMM_PARSER implements CMM_PARSERConstants {
     exp();
     jj_consume_token(RS);
     jj_consume_token(LB);
-    if (jj_2_13(2)) {
+    if (jj_2_18(2)) {
       stmt();
     } else {
       epsilon();
@@ -124,13 +156,13 @@ class CMM_PARSER implements CMM_PARSERConstants {
 
   static final public void exp() throws ParseException {
     simple_exp();
-    if (jj_2_14(2)) {
+    if (jj_2_19(2)) {
       jj_consume_token(BL);
       simple_exp();
-    } else if (jj_2_15(2)) {
+    } else if (jj_2_20(2)) {
       jj_consume_token(EQ);
       simple_exp();
-    } else if (jj_2_16(2)) {
+    } else if (jj_2_21(2)) {
       jj_consume_token(AB);
       simple_exp();
     } else {
@@ -144,11 +176,11 @@ class CMM_PARSER implements CMM_PARSERConstants {
 }
 
   static final public void simple_exp1() throws ParseException {
-    if (jj_2_17(2)) {
+    if (jj_2_22(2)) {
       jj_consume_token(SUB);
       term();
       simple_exp1();
-    } else if (jj_2_18(2)) {
+    } else if (jj_2_23(2)) {
       jj_consume_token(ADD);
       term();
       simple_exp1();
@@ -163,11 +195,11 @@ class CMM_PARSER implements CMM_PARSERConstants {
 }
 
   static final public void term1() throws ParseException {
-    if (jj_2_19(2)) {
+    if (jj_2_24(2)) {
       jj_consume_token(DIV);
       factor();
       term1();
-    } else if (jj_2_20(2)) {
+    } else if (jj_2_25(2)) {
       jj_consume_token(MUL);
       factor();
       term1();
@@ -177,13 +209,13 @@ class CMM_PARSER implements CMM_PARSERConstants {
 }
 
   static final public void factor() throws ParseException {
-    if (jj_2_21(2)) {
+    if (jj_2_26(2)) {
       jj_consume_token(LS);
       exp();
       jj_consume_token(RS);
-    } else if (jj_2_22(2)) {
+    } else if (jj_2_27(2)) {
       jj_consume_token(NUM);
-    } else if (jj_2_23(2)) {
+    } else if (jj_2_28(2)) {
       jj_consume_token(ID);
     } else {
       jj_consume_token(-1);
@@ -379,52 +411,83 @@ class CMM_PARSER implements CMM_PARSERConstants {
     finally { jj_save(22, xla); }
   }
 
-  static private boolean jj_3_1()
+  static private boolean jj_2_24(int xla)
  {
-    if (jj_3R_arg_stmt_84_5_1()) return true;
-    if (jj_scan_token(RS)) return true;
-    return false;
+    jj_la = xla; jj_lastpos = jj_scanpos = token;
+    try { return (!jj_3_24()); }
+    catch(LookaheadSuccess ls) { return true; }
+    finally { jj_save(23, xla); }
   }
 
-  static private boolean jj_3_6()
+  static private boolean jj_2_25(int xla)
  {
-    if (jj_scan_token(ID)) return true;
+    jj_la = xla; jj_lastpos = jj_scanpos = token;
+    try { return (!jj_3_25()); }
+    catch(LookaheadSuccess ls) { return true; }
+    finally { jj_save(24, xla); }
+  }
+
+  static private boolean jj_2_26(int xla)
+ {
+    jj_la = xla; jj_lastpos = jj_scanpos = token;
+    try { return (!jj_3_26()); }
+    catch(LookaheadSuccess ls) { return true; }
+    finally { jj_save(25, xla); }
+  }
+
+  static private boolean jj_2_27(int xla)
+ {
+    jj_la = xla; jj_lastpos = jj_scanpos = token;
+    try { return (!jj_3_27()); }
+    catch(LookaheadSuccess ls) { return true; }
+    finally { jj_save(26, xla); }
+  }
+
+  static private boolean jj_2_28(int xla)
+ {
+    jj_la = xla; jj_lastpos = jj_scanpos = token;
+    try { return (!jj_3_28()); }
+    catch(LookaheadSuccess ls) { return true; }
+    finally { jj_save(27, xla); }
+  }
+
+  static private boolean jj_3_25()
+ {
+    if (jj_scan_token(MUL)) return true;
+    if (jj_3R_factor_189_5_10()) return true;
     return false;
   }
 
   static private boolean jj_3_5()
  {
-    if (jj_scan_token(ID)) return true;
-    if (jj_scan_token(SEM)) return true;
+    if (jj_3R_ass_stmt_133_5_2()) return true;
     return false;
   }
 
-  static private boolean jj_3R_arg_stmt_84_5_1()
+  static private boolean jj_3_24()
  {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3_5()) {
-    jj_scanpos = xsp;
-    if (jj_3_6()) return true;
-    }
-    return false;
-  }
-
-  static private boolean jj_3R_epsilon_174_5_13()
- {
-    return false;
-  }
-
-  static private boolean jj_3R_stmt_seq_78_6_12()
- {
-    if (jj_3R_epsilon_174_5_13()) return true;
+    if (jj_scan_token(DIV)) return true;
+    if (jj_3R_factor_189_5_10()) return true;
     return false;
   }
 
   static private boolean jj_3_4()
  {
-    if (jj_3R_arg_stmt_84_5_1()) return true;
-    if (jj_3R_stmt_seq_76_5_2()) return true;
+    if (jj_3R_arg_stmt_93_5_1()) return true;
+    if (jj_scan_token(30)) return true;
+    return false;
+  }
+
+  static private boolean jj_3_17()
+ {
+    if (jj_scan_token(ELSE)) return true;
+    if (jj_scan_token(LB)) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_term_175_5_9()
+ {
+    if (jj_3R_factor_189_5_10()) return true;
     return false;
   }
 
@@ -435,117 +498,69 @@ class CMM_PARSER implements CMM_PARSERConstants {
     return false;
   }
 
-  static private boolean jj_3R_stmt_seq_76_5_2()
+  static private boolean jj_3_18()
  {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3_3()) {
-    jj_scanpos = xsp;
-    if (jj_3_4()) {
-    jj_scanpos = xsp;
-    if (jj_3R_stmt_seq_78_6_12()) return true;
-    }
-    }
+    if (jj_3R_stmt_107_5_3()) return true;
     return false;
   }
 
   static private boolean jj_3_23()
  {
-    if (jj_scan_token(ID)) return true;
-    return false;
-  }
-
-  static private boolean jj_3_22()
- {
-    if (jj_scan_token(NUM)) return true;
+    if (jj_scan_token(ADD)) return true;
+    if (jj_3R_term_175_5_9()) return true;
     return false;
   }
 
   static private boolean jj_3_21()
  {
-    if (jj_scan_token(LS)) return true;
-    if (jj_3R_exp_130_5_11()) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_factor_168_5_10()
- {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3_21()) {
-    jj_scanpos = xsp;
-    if (jj_3_22()) {
-    jj_scanpos = xsp;
-    if (jj_3_23()) return true;
-    }
-    }
+    if (jj_scan_token(AB)) return true;
+    if (jj_3R_simple_exp_160_5_8()) return true;
     return false;
   }
 
   static private boolean jj_3_20()
  {
-    if (jj_scan_token(MUL)) return true;
-    if (jj_3R_factor_168_5_10()) return true;
+    if (jj_scan_token(EQ)) return true;
+    if (jj_3R_simple_exp_160_5_8()) return true;
+    return false;
+  }
+
+  static private boolean jj_3_22()
+ {
+    if (jj_scan_token(SUB)) return true;
+    if (jj_3R_term_175_5_9()) return true;
     return false;
   }
 
   static private boolean jj_3_19()
  {
-    if (jj_scan_token(DIV)) return true;
-    if (jj_3R_factor_168_5_10()) return true;
+    if (jj_scan_token(BL)) return true;
+    if (jj_3R_simple_exp_160_5_8()) return true;
     return false;
   }
 
-  static private boolean jj_3R_term_154_5_9()
+  static private boolean jj_3R_simple_exp_160_5_8()
  {
-    if (jj_3R_factor_168_5_10()) return true;
-    return false;
-  }
-
-  static private boolean jj_3_13()
- {
-    if (jj_3R_stmt_97_5_3()) return true;
-    return false;
-  }
-
-  static private boolean jj_3_18()
- {
-    if (jj_scan_token(ADD)) return true;
-    if (jj_3R_term_154_5_9()) return true;
-    return false;
-  }
-
-  static private boolean jj_3_16()
- {
-    if (jj_scan_token(AB)) return true;
-    if (jj_3R_simple_exp_139_5_8()) return true;
-    return false;
-  }
-
-  static private boolean jj_3_17()
- {
-    if (jj_scan_token(SUB)) return true;
-    if (jj_3R_term_154_5_9()) return true;
+    if (jj_3R_term_175_5_9()) return true;
     return false;
   }
 
   static private boolean jj_3_15()
  {
-    if (jj_scan_token(EQ)) return true;
-    if (jj_3R_simple_exp_139_5_8()) return true;
+    if (jj_3R_stmt_107_5_3()) return true;
     return false;
   }
 
-  static private boolean jj_3_14()
+  static private boolean jj_3R_exp_151_5_11()
  {
-    if (jj_scan_token(BL)) return true;
-    if (jj_3R_simple_exp_139_5_8()) return true;
+    if (jj_3R_simple_exp_160_5_8()) return true;
     return false;
   }
 
-  static private boolean jj_3R_simple_exp_139_5_8()
+  static private boolean jj_3R_return_stmt_145_5_6()
  {
-    if (jj_3R_term_154_5_9()) return true;
+    if (jj_scan_token(RETURN)) return true;
+    if (jj_3R_exp_151_5_11()) return true;
     return false;
   }
 
@@ -556,90 +571,163 @@ class CMM_PARSER implements CMM_PARSERConstants {
     return false;
   }
 
-  static private boolean jj_3_12()
- {
-    if (jj_3R_stmt_97_5_3()) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_exp_130_5_11()
- {
-    if (jj_3R_simple_exp_139_5_8()) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_return_stmt_124_5_7()
- {
-    if (jj_scan_token(RETURN)) return true;
-    if (jj_3R_exp_130_5_11()) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_loop_stmt_118_5_5()
+  static private boolean jj_3R_loop_stmt_139_5_5()
  {
     if (jj_scan_token(WHILE)) return true;
     if (jj_scan_token(LS)) return true;
     return false;
   }
 
-  static private boolean jj_3R_ass_stmt_112_5_6()
+  static private boolean jj_3R_ass_stmt_133_5_2()
  {
     if (jj_scan_token(ID)) return true;
     if (jj_scan_token(ASS)) return true;
     return false;
   }
 
-  static private boolean jj_3R_if_stmt_106_5_4()
+  static private boolean jj_3_14()
+ {
+    if (jj_3R_arg_stmt_93_5_1()) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_if_stmt_127_5_4()
  {
     if (jj_scan_token(IF)) return true;
     if (jj_scan_token(LS)) return true;
     return false;
   }
 
+  static private boolean jj_3R_call_stmt_119_5_7()
+ {
+    if (jj_scan_token(ID)) return true;
+    if (jj_scan_token(LS)) return true;
+    return false;
+  }
+
+  static private boolean jj_3_13()
+ {
+    if (jj_3R_call_stmt_119_5_7()) return true;
+    return false;
+  }
+
+  static private boolean jj_3_12()
+ {
+    if (jj_3R_return_stmt_145_5_6()) return true;
+    return false;
+  }
+
   static private boolean jj_3_11()
  {
-    if (jj_3R_return_stmt_124_5_7()) return true;
+    if (jj_3R_ass_stmt_133_5_2()) return true;
     return false;
   }
 
   static private boolean jj_3_10()
  {
-    if (jj_3R_ass_stmt_112_5_6()) return true;
+    if (jj_3R_loop_stmt_139_5_5()) return true;
     return false;
   }
 
   static private boolean jj_3_9()
  {
-    if (jj_3R_loop_stmt_118_5_5()) return true;
+    if (jj_3R_if_stmt_127_5_4()) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_stmt_107_5_3()
+ {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3_9()) {
+    jj_scanpos = xsp;
+    if (jj_3_10()) {
+    jj_scanpos = xsp;
+    if (jj_3_11()) {
+    jj_scanpos = xsp;
+    if (jj_3_12()) {
+    jj_scanpos = xsp;
+    if (jj_3_13()) return true;
+    }
+    }
+    }
+    }
     return false;
   }
 
   static private boolean jj_3_8()
  {
-    if (jj_3R_if_stmt_106_5_4()) return true;
+    if (jj_3R_stmt_107_5_3()) return true;
     return false;
   }
 
-  static private boolean jj_3R_stmt_97_5_3()
+  static private boolean jj_3_28()
  {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3_8()) {
-    jj_scanpos = xsp;
-    if (jj_3_9()) {
-    jj_scanpos = xsp;
-    if (jj_3_10()) {
-    jj_scanpos = xsp;
-    if (jj_3_11()) return true;
-    }
-    }
-    }
+    if (jj_scan_token(ID)) return true;
+    return false;
+  }
+
+  static private boolean jj_3_27()
+ {
+    if (jj_scan_token(NUM)) return true;
     return false;
   }
 
   static private boolean jj_3_7()
  {
-    if (jj_3R_stmt_97_5_3()) return true;
+    if (jj_scan_token(ID)) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_factor_189_5_10()
+ {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3_26()) {
+    jj_scanpos = xsp;
+    if (jj_3_27()) {
+    jj_scanpos = xsp;
+    if (jj_3_28()) return true;
+    }
+    }
+    return false;
+  }
+
+  static private boolean jj_3_16()
+ {
+    if (jj_3R_stmt_107_5_3()) return true;
+    return false;
+  }
+
+  static private boolean jj_3_26()
+ {
+    if (jj_scan_token(LS)) return true;
+    if (jj_3R_exp_151_5_11()) return true;
+    return false;
+  }
+
+  static private boolean jj_3_6()
+ {
+    if (jj_scan_token(ID)) return true;
+    if (jj_scan_token(SEM)) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_arg_stmt_93_5_1()
+ {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3_6()) {
+    jj_scanpos = xsp;
+    if (jj_3_7()) return true;
+    }
+    return false;
+  }
+
+  static private boolean jj_3_1()
+ {
+    if (jj_3R_arg_stmt_93_5_1()) return true;
+    if (jj_scan_token(RS)) return true;
     return false;
   }
 
@@ -663,7 +751,7 @@ class CMM_PARSER implements CMM_PARSERConstants {
 	private static void jj_la1_init_0() {
 	   jj_la1_0 = new int[] {};
 	}
-  static final private JJCalls[] jj_2_rtns = new JJCalls[23];
+  static final private JJCalls[] jj_2_rtns = new JJCalls[28];
   static private boolean jj_rescan = false;
   static private int jj_gc = 0;
 
@@ -938,7 +1026,7 @@ class CMM_PARSER implements CMM_PARSERConstants {
 
   static private void jj_rescan_token() {
 	 jj_rescan = true;
-	 for (int i = 0; i < 23; i++) {
+	 for (int i = 0; i < 28; i++) {
 	   try {
 		 JJCalls p = jj_2_rtns[i];
 
@@ -969,6 +1057,11 @@ class CMM_PARSER implements CMM_PARSERConstants {
 			   case 20: jj_3_21(); break;
 			   case 21: jj_3_22(); break;
 			   case 22: jj_3_23(); break;
+			   case 23: jj_3_24(); break;
+			   case 24: jj_3_25(); break;
+			   case 25: jj_3_26(); break;
+			   case 26: jj_3_27(); break;
+			   case 27: jj_3_28(); break;
 			 }
 		   }
 		   p = p.next;
