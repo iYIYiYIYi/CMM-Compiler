@@ -18,9 +18,14 @@ public interface CMM_PARSERVisitor
   public Object visit(ASTexp node, Object data);
   public Object visit(ASTsimple_exp node, Object data);
   public Object visit(ASTsimple_exp1 node, Object data);
+  public Object visit(ASTSUB node, Object data);
+  public Object visit(ASTADD node, Object data);
   public Object visit(ASTterm node, Object data);
   public Object visit(ASTterm1 node, Object data);
+  public Object visit(ASTDIV node, Object data);
+  public Object visit(ASTMUL node, Object data);
   public Object visit(ASTfactor node, Object data);
+  public Object visit(ASTNUM node, Object data);
   public Object visit(ASTepsilon node, Object data);
 }
-/* JavaCC - OriginalChecksum=703b9a0ba6f3dde46202c1fe016f854a (do not edit this line) */
+/* JavaCC - OriginalChecksum=d5a25f8e742657ca1e744f23bf57201c (do not edit this line) */

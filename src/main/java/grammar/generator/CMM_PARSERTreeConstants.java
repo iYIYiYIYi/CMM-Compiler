@@ -17,10 +17,15 @@ public interface CMM_PARSERTreeConstants
   public int JJTEXP = 11;
   public int JJTSIMPLE_EXP = 12;
   public int JJTSIMPLE_EXP1 = 13;
-  public int JJTTERM = 14;
-  public int JJTTERM1 = 15;
-  public int JJTFACTOR = 16;
-  public int JJTEPSILON = 17;
+  public int JJTSUB = 14;
+  public int JJTADD = 15;
+  public int JJTTERM = 16;
+  public int JJTTERM1 = 17;
+  public int JJTDIV = 18;
+  public int JJTMUL = 19;
+  public int JJTFACTOR = 20;
+  public int JJTNUM = 21;
+  public int JJTEPSILON = 22;
 
 
   public String[] jjtNodeName = {
@@ -38,10 +43,15 @@ public interface CMM_PARSERTreeConstants
     "exp",
     "simple_exp",
     "simple_exp1",
+    "SUB",
+    "ADD",
     "term",
     "term1",
+    "DIV",
+    "MUL",
     "factor",
+    "NUM",
     "epsilon",
   };
 }
-/* JavaCC - OriginalChecksum=7ecff55798d973a9c7309ce9c72b8925 (do not edit this line) */
+/* JavaCC - OriginalChecksum=01bc141840e7708c5dc79f2815dcea07 (do not edit this line) */

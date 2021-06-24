@@ -7,7 +7,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Main extends Application {
+
+    public static Set<String> variables = new HashSet<>();
+    public static Set<String> functions = new HashSet<>();
 
     @Override
     public void start(Stage primaryStage) throws Exception{
