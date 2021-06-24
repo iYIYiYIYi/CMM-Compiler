@@ -7,13 +7,14 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EditorController">
    <children>
-      <ToolBar prefHeight="35.0" prefWidth="750.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <ToolBar minHeight="40.0" prefHeight="40.0" prefWidth="750.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
           <Button mnemonicParsing="false" onAction="#onRun" text="Run" textAlignment="CENTER" />
             <Button mnemonicParsing="false" onAction="#onSave" text="Save" textAlignment="CENTER" />
+            <Button mnemonicParsing="false" onAction="#onLoad" text="Load" textAlignment="CENTER" />
         </items>
       </ToolBar>
-      <TabPane layoutY="35.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0">
+      <TabPane layoutY="35.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
         <tabs>
           <Tab text="name">
             <content>
