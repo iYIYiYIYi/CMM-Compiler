@@ -39,7 +39,6 @@ stmt_seq:ID LS RS => LB fun_stmt RB stmt_seq
                 |arg_stmt stmt_seq
                 |ε
 fun_stmt: stmt fun_stmt
-             
 arg_stmt : ID SEM arg_stmt | ID
 stmt: if_stmt
                 |loop_stmt
