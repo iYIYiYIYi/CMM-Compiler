@@ -11,6 +11,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Main extends Application {
 
     public static InputStream in;
@@ -23,6 +26,9 @@ public class Main extends Application {
     }
 
     public static CMM_PARSER parser = new CMM_PARSER(in);
+
+    public static Set<String> variables = new HashSet<>();
+    public static Set<String> functions = new HashSet<>();
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -37,6 +43,7 @@ public class Main extends Application {
 
 
     }
+
 }
 
 

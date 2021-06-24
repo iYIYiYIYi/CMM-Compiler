@@ -99,7 +99,7 @@ public interface CMM_PARSERConstants {
     "<ID>",
     "<NUM>",
     "<DIGIT>",
-    "\"=>\"",
+    "\"->\"",
     "\":\"",
   };
 

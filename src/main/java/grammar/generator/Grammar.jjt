@@ -1,0 +1,240 @@
+options {
+    STATIC = true;
+    UNICODE_INPUT = true;
+    LOOKAHEAD = 2;
+    VISITOR = true;
+    MULTI = true;
+    DEBUG_PARSER = true;
+    JDK_VERSION = "1.8";
+}
+
+PARSER_BEGIN(CMM_PARSER)
+package grammar.generator;
+import java.io.*;
+import grammar.parser.Main;
+
+public class CMM_PARSER {
+
+    public static void main(String[] args) throws ParseException{
+        CMM_PARSER parser = new CMM_PARSER(System.in);
+        parser.program();
+
+    }
+}
+PARSER_END(CMM_PARSER)
+
+SKIP :
+{
+  " "
+| "\r"
+| "\t"
+| "\n"
+}
+
+SPECIAL_TOKEN : {
+<LINE_COMMENT:"//"(~["\n","\r"]) * ("\n" | "\r\n"|"\r")?>
+}
+
+TOKEN : {
+< IMPORT : "import">
+| <IF : "if">
+| <ELSE : "else">
+| <WHILE : "while">
+| <RETURN : "return">
+}
+
+TOKEN : {
+<ADD : "+">
+| <SUB : "-">
+| <MUL : "*">
+| <DIV : "/">
+| <MOD : "%">
+| <AB : ">">
+| <BL : "<">
+| <ASS : "=">
+| <EQ : "==">
+| <LB : "{">
+| <RB : "}">
+| <LM : "[">
+| <RM : "]">
+| <LS : "(">
+| <RS : ")">
+| <SEM : ",">
+| <END : ";">
+}
+
+TOKEN : {
+<ID : ["a"-"z","A"-"Z","_"](["a"-"z","A"-"Z","_","0"-"9"])*>
+| <NUM : (< DIGIT >)+ >
+| < #DIGIT : [ "0"-"9" ]>
+}
+
+
+void program () :
+{}
+{
+    stmt_seq()
+}
+
+void stmt_seq() :
+{
+    Token id;
+}
+{
+    LOOKAHEAD(2)
+    id = <ID> <LS> (arg_stmt() <RS> "->" <LB> fun_stmt() <RB> stmt_seq1() | <RS> "->" <LB> fun_stmt() <RB> stmt_seq1()) {
+        jjtThis.value = id.image;
+        Main.functions.add(id.image);
+    }
+    |arg_stmt() <END> stmt_seq1()
+    |ass_stmt() stmt_seq1()
+
+}
+
+void stmt_seq1() :
+{}
+{
+    stmt_seq()
+    |epsilon()
+}
+
+void arg_stmt() :
+{Token id;}
+{
+    id = <ID>(<SEM> arg_stmt()|epsilon() ){
+                                                  jjtThis.value = id.image;
+                                                  Main.functions.add(id.image);
+                                              }
+}
+
+void fun_stmt() :
+{}
+{
+    stmt() fun_stmt()
+    | epsilon()
+}
+
+void stmt() :
+{}
+{
+    LOOKAHEAD(<ID>)
+    if_stmt()
+    | loop_stmt()
+    | ass_stmt()
+    | return_stmt()
+    | call_stmt()
+}
+
+void call_stmt():
+{
+Token id;
+}
+{
+    id = <ID>{
+                String name = id.image;
+                if (!Main.functions.contains(name))
+                    throw new ParseException("function not exist");
+                jjtThis.value = id.image;
+    } <LS> (arg_stmt()|epsilon()) <RS> <END>
+}
+
+void if_stmt() :
+{
+}
+{
+    <IF>":" exp() <LB> (stmt()|epsilon()) <RB> (<ELSE> <LB> (stmt()|epsilon()) <RB> | epsilon() )
+}
+
+void ass_stmt() :
+{Token id;}
+{
+    id = <ID> {
+                      Main.variables.add(id.image);
+                      jjtThis.value = id.image;
+                  }
+    <ASS> exp() <END>
+}
+
+void loop_stmt() :
+{}
+{
+    <WHILE> ":" exp() <LB> (stmt()|epsilon()) <RB>
+}
+
+void return_stmt() :
+{}
+{
+    <RETURN> exp() <END>
+}
+
+void exp() :
+{}
+{
+    simple_exp() (<BL> simple_exp()
+    		| <EQ> simple_exp()
+    		| <AB> simple_exp()
+    		| epsilon() )
+}
+
+void simple_exp() :
+{}
+{
+    term() simple_exp1()
+}
+
+void simple_exp1():
+{}
+{
+    <SUB> term() simple_exp1() {jjtThis.value = "-";}#SUB(2)
+    |<ADD> term() simple_exp1() {jjtThis.value = "+";}#ADD(2)
+    |epsilon()
+}
+
+
+void term() :
+{}
+{
+    factor() term1()
+}
+
+void term1() :
+{}
+{
+    <DIV> factor() term1() {jjtThis.value = "/";}#DIV(2)
+    |<MUL> factor() term1() {jjtThis.value = "*";}#MUL(2)
+    |epsilon()
+}
+
+void factor() :
+{
+    Token t;
+ }
+{
+    <LS> exp() <RS>
+    |t = <NUM> {
+        Integer i = Integer.parseInt(t.image);
+        jjtThis.value = i;
+    } #NUM(0)
+    |t = <ID> {
+        if (!Main.variables.contains(t.image)) {
+            throw new ParseException("variable not exist");
+        }
+
+        jjtThis.value = t.image;
+    }
+}
+
+void epsilon() : { } {
+    {}
+}
+
+
+
+
+
+
+
+
+
+
+

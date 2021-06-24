@@ -51,17 +51,32 @@ public class CMM_PARSERDefaultVisitor implements CMM_PARSERVisitor{
   public Object visit(ASTsimple_exp1 node, Object data){
     return defaultVisit(node, data);
   }
+  public Object visit(ASTSUB node, Object data){
+    return defaultVisit(node, data);
+  }
+  public Object visit(ASTADD node, Object data){
+    return defaultVisit(node, data);
+  }
   public Object visit(ASTterm node, Object data){
     return defaultVisit(node, data);
   }
   public Object visit(ASTterm1 node, Object data){
     return defaultVisit(node, data);
   }
+  public Object visit(ASTDIV node, Object data){
+    return defaultVisit(node, data);
+  }
+  public Object visit(ASTMUL node, Object data){
+    return defaultVisit(node, data);
+  }
   public Object visit(ASTfactor node, Object data){
+    return defaultVisit(node, data);
+  }
+  public Object visit(ASTNUM node, Object data){
     return defaultVisit(node, data);
   }
   public Object visit(ASTepsilon node, Object data){
     return defaultVisit(node, data);
   }
 }
-/* JavaCC - OriginalChecksum=03674c577836fc6cd17134e4d5dde78f (do not edit this line) */
+/* JavaCC - OriginalChecksum=27d2cb24033cdd4f29bad0e57f3ac2f8 (do not edit this line) */
