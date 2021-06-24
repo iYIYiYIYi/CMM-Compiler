@@ -267,7 +267,6 @@ void stmt() :
 {/*@bgen(jjtree) stmt */
     try {
 /*@egen*/
-    LOOKAHEAD(<ID>)
     if_stmt()
     | loop_stmt()
     | ass_stmt()
