@@ -5,14 +5,14 @@ options {
 }
 
 PARSER_BEGIN(CMM_PARSER)
-
+package grammar.generator;
 import java.io.*;
 
 class CMM_PARSER {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException{
         CMM_PARSER parser = new CMM_PARSER(System.in);
-        parser.Input();
+        parser.program();
     }
 
 }
@@ -64,25 +64,10 @@ TOKEN : {
 | < #DIGIT : [ "0"-"9" ] >
 }
 
-TOKEN : {
-    < EMPTY : "" >
-    : MATCH_NON_EMPTY // change state, or infinite matches of the empty string could result
-}
-<MATCH_NON_EMPTY>
-TOKEN : {
-    < NON_EMPTY : ~[] >
-}
-
-
-
-
-
-
-
 void program () :
 {}
 {
-    stmt_seq() ";"
+    stmt_seq()
 }
 
 void stmt_seq() :
@@ -118,9 +103,7 @@ void stmt() :
 void if_stmt() :
 {}
 {
-
-    <IF><LS> exp() <RS><LB> stmt() <RB>
-    |<IF> <LS> exp() <RS> <LB> stmt() <RB> <ELSE> <LB> stmt() <RB>
+    <IF><LS> exp() <RS><LB> (stmt()|epsilon()) <RB>(epsilon() |  <ELSE> <LB> stmt() <RB>)
 }
 
 void ass_stmt() :
@@ -132,7 +115,7 @@ void ass_stmt() :
 void loop_stmt() :
 {}
 {
-    <WHILE> <LS> exp() <RS> <LB> stmt()
+    <WHILE> <LS> exp() <RS> <LB> (stmt()|epsilon()) <RB>
 }
 
 void return_stmt() :
@@ -144,11 +127,10 @@ void return_stmt() :
 void exp() :
 {}
 {
-    LOOKAHEAD(simple_exp())
-    simple_exp() <BL> simple_exp()
-    		| simple_exp() <EQ> simple_exp()
-    		| simple_exp() <AB> simple_exp()
-    		| simple_exp()
+    simple_exp() (<BL> simple_exp()
+    		| <EQ> simple_exp()
+    		| <AB> simple_exp()
+    		| epsilon() )
 }
 
 void simple_exp() :
@@ -189,7 +171,7 @@ void factor() :
 }
 
 void epsilon() : { } {
-    <EMPTY> <NON_EMPTY>
+    {}
 }
 
 
