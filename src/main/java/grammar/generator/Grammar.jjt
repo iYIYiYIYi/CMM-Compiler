@@ -81,13 +81,11 @@ void stmt_seq() :
     Token id;
 }
 {
-    LOOKAHEAD(2)
+
     id = <ID> <LS> (arg_stmt() <RS> "->" <LB> fun_stmt() <RB> stmt_seq1() | <RS> "->" <LB> fun_stmt() <RB> stmt_seq1()) {
         jjtThis.value = id.image;
         Main.functions.add(id.image);
     }
-    |arg_stmt() <END> stmt_seq1()
-    |ass_stmt() stmt_seq1()
 
 }
 
