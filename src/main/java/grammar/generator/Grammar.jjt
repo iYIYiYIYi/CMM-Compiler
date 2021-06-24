@@ -141,7 +141,7 @@ void if_stmt() :
 {
 }
 {
-    <IF>":" exp() <LB> (stmt()|epsilon()) <RB> (<ELSE> <LB> (stmt()|epsilon()) <RB> | epsilon() )
+    <IF>":" exp() <LB> (stmt()|epsilon()) <RB>
 }
 
 void ass_stmt() :

@@ -31,6 +31,27 @@ public class EditorController implements Initializable {
     }
 
     @FXML
+    public void onLoad() throws IOException {
+        numText.scrollTopProperty().bindBidirectional(codeText.scrollTopProperty());
+        String url="src/main/resources/codeFile/code.cmm";
+        BufferedReader bf= new BufferedReader(new FileReader(url));
+        StringBuffer buffer = new StringBuffer();
+        String s = null;
+        while((s = bf.readLine())!=null){//使用readLine方法，一次读一行
+            buffer.append(s.trim()+"\n");
+        }
+        String xml = buffer.toString();
+        codeText.setText(xml);
+        String[] strings=xml.split("\n");
+        int k=strings.length;
+        String num="";
+        for (int i = 1; i <= k; i++) {
+            num+=(i+"\n");
+        }
+        numText.setText(num);
+    }
+
+    @FXML
     public void onRun() throws IOException {
         codeText.setStyle("-fx-text-fill:black");
         String s=codeText.getText();
@@ -50,7 +71,6 @@ public class EditorController implements Initializable {
             String err=e.getMessage();
             int x= Integer.parseInt(err.substring(err.indexOf("line")+5,err.indexOf(",",err.indexOf("line"))));
             int y= Integer.parseInt(err.substring(err.indexOf("column")+7,err.indexOf(".",err.indexOf("column"))));
-            System.out.println("x:"+x+" y:"+y);
             codeText.setStyle("-fx-text-fill:red");
         }
     }

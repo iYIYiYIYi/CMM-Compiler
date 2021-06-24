@@ -343,7 +343,7 @@ void if_stmt() :
 {/*@bgen(jjtree) if_stmt */
     try {
 /*@egen*/
-    <IF>":" exp() <LB> (stmt()|epsilon()) <RB> (<ELSE> <LB> (stmt()|epsilon()) <RB> | epsilon() )/*@bgen(jjtree)*/
+    <IF>":" exp() <LB> (stmt()|epsilon()) <RB>/*@bgen(jjtree)*/
     } catch (Throwable jjte000) {
       if (jjtc000) {
         jjtree.clearNodeScope(jjtn000);
