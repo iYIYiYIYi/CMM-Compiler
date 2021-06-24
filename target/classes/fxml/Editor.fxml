@@ -23,7 +23,7 @@
                           <items>
                               <SplitPane dividerPositions="0.05">
                                 <items>
-                                    <TextArea id="codeText" fx:id="numText" cache="true" editable="false" maxWidth="30.0" minWidth="30.0">
+                                    <TextArea id="codeText" fx:id="numText" cache="true" editable="false" maxWidth="100.0" minWidth="70.0">
                                        <font>
                                           <Font name="Comic Sans MS" size="14.0" />
                                        </font>
