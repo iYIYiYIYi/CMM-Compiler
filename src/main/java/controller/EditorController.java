@@ -78,6 +78,7 @@ public class EditorController implements Initializable {
             num+=(i+"\n");
         }
         numText.setText(num);
+        numText.scrollTopProperty().bindBidirectional(codeText.scrollTopProperty());
     }
 
     @Override
