@@ -117,7 +117,7 @@ void stmt_seq() :
 {/*@bgen(jjtree) stmt_seq */
     try {
 /*@egen*/
-    LOOKAHEAD(2)
+    
     id = <ID> <LS> (arg_stmt() <RS> "->" <LB> fun_stmt() <RB> stmt_seq1() | <RS> "->" <LB> fun_stmt() <RB> stmt_seq1())/*@bgen(jjtree)*/
                                                                                                                         {
                                                                                                                           jjtree.closeNodeScope(jjtn000, true);
@@ -126,9 +126,7 @@ void stmt_seq() :
 /*@egen*/ {
         jjtn000.value = id.image;
         Main.functions.add(id.image);
-    }
-    |arg_stmt() <END> stmt_seq1()
-    |ass_stmt() stmt_seq1()/*@bgen(jjtree)*/
+    }/*@bgen(jjtree)*/
     } catch (Throwable jjte000) {
       if (jjtc000) {
         jjtree.clearNodeScope(jjtn000);
