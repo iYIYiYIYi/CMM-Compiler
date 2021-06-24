@@ -2,6 +2,8 @@ options {
     STATIC = true;
     UNICODE_INPUT = true;
     LOOKAHEAD = 2;
+    VISITOR = true;
+    MULTI = true;
 }
 
 PARSER_BEGIN(CMM_PARSER)
@@ -57,13 +59,15 @@ TOKEN : {
 | <LS : "(">
 | <RS : ")">
 | <SEM : ",">
+| <END : ";">
 }
 
 TOKEN : {
 <ID : ["a"-"z","A"-"Z","_"](["a"-"z","A"-"Z","_","0"-"9"])*>
-|<NUM : (< DIGIT >)+ >
+| <NUM : (< DIGIT >)+ >
 | < #DIGIT : [ "0"-"9" ]>
 }
+
 
 void program () :
 {}
@@ -73,19 +77,20 @@ void program () :
 
 void stmt_seq() :
 {
-    Token id = null;
-    System.out.println("stmt_seq clause");
 }
 {
-    <ID>
-    {
+    LOOKAHEAD(<ID>)
+    <ID> <LS> (arg_stmt() <RS> "=>" <LB> fun_stmt() <RB> stmt_seq1() | <RS> "=>" <LB> fun_stmt() <RB> stmt_seq1())
+    |arg_stmt() ";" stmt_seq1()
+    |ass_stmt() stmt_seq1()
 
-       System.out.println(id.getValue());
-    } <LS> (arg_stmt() <RS> <LB> fun_stmt() <RB> stmt_seq() | <RS> <LB> fun_stmt() <RB> stmt_seq())
-    |arg_stmt() ";" stmt_seq()
-    |ass_stmt() stmt_seq()
+}
+
+void stmt_seq1() :
+{}
+{
+    stmt_seq()
     |epsilon()
-
 }
 
 void arg_stmt() :
@@ -117,7 +122,7 @@ void call_stmt():
 
 }
 {
-    <ID> <LS> (arg_stmt()|epsilon()) <RS> ";"
+    <ID> <LS> (arg_stmt()|epsilon()) <RS> <END>
 }
 
 void if_stmt() :
@@ -125,25 +130,25 @@ void if_stmt() :
     System.out.println("if clause");
 }
 {
-    <IF><LS> exp() <RS><LB> (stmt()|epsilon()) <RB> (<ELSE> <LB> (stmt()|epsilon()) <RB> | epsilon() )
+    <IF>":" exp() <LB> (stmt()|epsilon()) <RB> (<ELSE> <LB> (stmt()|epsilon()) <RB> | epsilon() )
 }
 
 void ass_stmt() :
 {}
 {
-    <ID> <ASS> exp() ";"
+    <ID> <ASS> exp() <END>
 }
 
 void loop_stmt() :
 {}
 {
-    <WHILE> <LS> exp() <RS> <LB> (stmt()|epsilon()) <RB>
+    <WHILE> ":" exp() <LB> (stmt()|epsilon()) <RB>
 }
 
 void return_stmt() :
 {}
 {
-    <RETURN> exp() ";"
+    <RETURN> exp() <END>
 }
 
 void exp() :

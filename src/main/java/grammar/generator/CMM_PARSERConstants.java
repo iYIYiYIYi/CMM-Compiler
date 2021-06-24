@@ -55,11 +55,13 @@ public interface CMM_PARSERConstants {
   /** RegularExpression Id. */
   int SEM = 26;
   /** RegularExpression Id. */
-  int ID = 27;
+  int END = 27;
   /** RegularExpression Id. */
-  int NUM = 28;
+  int ID = 28;
   /** RegularExpression Id. */
-  int DIGIT = 29;
+  int NUM = 29;
+  /** RegularExpression Id. */
+  int DIGIT = 30;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -93,10 +95,12 @@ public interface CMM_PARSERConstants {
     "\"(\"",
     "\")\"",
     "\",\"",
+    "\";\"",
     "<ID>",
     "<NUM>",
     "<DIGIT>",
-    "\";\"",
+    "\"=>\"",
+    "\":\"",
   };
 
 }

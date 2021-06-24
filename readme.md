@@ -34,8 +34,8 @@ Token List:
 语法：
 ```cpp
 program: stmt_seq
-stmt_seq:ID LS RS LB fun_stmt RB stmt_seq 
-                |ID LS arg_stmt RS LB fun_stmt RB stmt_seq
+stmt_seq:ID LS RS => LB fun_stmt RB stmt_seq 
+                |ID LS arg_stmt RS => LB fun_stmt RB stmt_seq
                 |arg_stmt stmt_seq
                 |ε
 fun_stmt: stmt fun_stmt
@@ -47,10 +47,10 @@ stmt: if_stmt
                 |return_stmt
                 |call_stmt
 call_stmt : ID LS arg_stmt RS
-if_stmt: IF LS exp RS LB stmt RB 
-                | IF LS exp RS LB stmt RB ELSE LB stmt RB
+if_stmt: IF : exp LB stmt RB 
+                | IF : exp LB stmt RB ELSE LB stmt RB
 ass_stmt: ID ASS exp
-loop_stmt:WHILE LS exp RS LB stmt RB
+loop_stmt:WHILE : exp LB stmt RB
 return_stmt: RETURN exp
 exp	: simple_exp BL simple_exp
 		| simple_exp EQ simple_exp
