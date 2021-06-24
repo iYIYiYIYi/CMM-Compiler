@@ -33,7 +33,7 @@ Token List:
 
 语法：
 ```cpp
-program: stmt_seq;
+program: stmt_seq
 stmt_seq:ID LS RS LB fun_stmt RB stmt_seq
                 |ID LS arg_stmt RS LB fun_stmt RB stmt_seq
                 |arg_stmt stmt_eq

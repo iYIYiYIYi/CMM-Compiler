@@ -1,19 +1,25 @@
 package grammar.parser;
 
-import org.apache.log4j.Logger;
+import controller.EditorController;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-public class Main {
+public class Main extends Application {
 
-    private final static String COMMAND_LINE_MODE = "cmd";
-
-    private final static Logger logger =  Logger.getLogger(Main.class);
+    @Override
+    public void start(Stage primaryStage) throws Exception{
+        Scene show =EditorController.show();
+        primaryStage.setScene(show);
+        primaryStage.show();
+    }
 
     public static void main(String[] args) {
-        if (args.length > 0 && COMMAND_LINE_MODE.equals(args[0])) {
-            logger.info("CMD Mode Starting");
-        } else {
-            logger.info("GUI Mode Starting...");
-        }
+        Application.launch();
     }
 
 }
+
+
