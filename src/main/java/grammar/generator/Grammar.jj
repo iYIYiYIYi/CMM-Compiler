@@ -2,17 +2,20 @@ options {
     STATIC = true;
     UNICODE_INPUT = true;
     LOOKAHEAD = 2;
+    VISITOR = true;
+    MULTI = true;
 }
 
 PARSER_BEGIN(CMM_PARSER)
-
+package grammar.generator;
 import java.io.*;
 
 class CMM_PARSER {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException{
         CMM_PARSER parser = new CMM_PARSER(System.in);
-        parser.Input();
+        parser.program();
+
     }
 
 }
@@ -56,40 +59,37 @@ TOKEN : {
 | <LS : "(">
 | <RS : ")">
 | <SEM : ",">
+| <END : ";">
 }
 
 TOKEN : {
 <ID : ["a"-"z","A"-"Z","_"](["a"-"z","A"-"Z","_","0"-"9"])*>
-|<NUM : (< DIGIT >)+ >
-| < #DIGIT : [ "0"-"9" ] >
+| <NUM : (< DIGIT >)+ >
+| < #DIGIT : [ "0"-"9" ]>
 }
-
-TOKEN : {
-    < EMPTY : "" >
-    : MATCH_NON_EMPTY // change state, or infinite matches of the empty string could result
-}
-<MATCH_NON_EMPTY>
-TOKEN : {
-    < NON_EMPTY : ~[] >
-}
-
-
-
-
-
 
 
 void program () :
 {}
 {
-    stmt_seq() ";"
+    stmt_seq()
 }
 
 void stmt_seq() :
+{
+}
+{
+    LOOKAHEAD(<ID>)
+    <ID> <LS> (arg_stmt() <RS> "=>" <LB> fun_stmt() <RB> stmt_seq1() | <RS> "=>" <LB> fun_stmt() <RB> stmt_seq1())
+    |arg_stmt() ";" stmt_seq1()
+    |ass_stmt() stmt_seq1()
+
+}
+
+void stmt_seq1() :
 {}
 {
-    <ID> <LS> (arg_stmt() <RS> <LB> fun_stmt() <RB> stmt_seq() | <RS> <LB> fun_stmt() <RB> stmt_seq())
-    |arg_stmt() stmt_seq()
+    stmt_seq()
     |epsilon()
 }
 
@@ -103,7 +103,8 @@ void arg_stmt() :
 void fun_stmt() :
 {}
 {
-    stmt() fun_stmt() | epsilon()
+    stmt() fun_stmt()
+    | epsilon()
 }
 
 void stmt() :
@@ -113,42 +114,50 @@ void stmt() :
     | loop_stmt()
     | ass_stmt()
     | return_stmt()
+    | call_stmt()
+}
+
+void call_stmt():
+{
+
+}
+{
+    <ID> <LS> (arg_stmt()|epsilon()) <RS> <END>
 }
 
 void if_stmt() :
-{}
 {
-
-    <IF><LS> exp() <RS><LB> stmt() <RB>
-    |<IF> <LS> exp() <RS> <LB> stmt() <RB> <ELSE> <LB> stmt() <RB>
+    System.out.println("if clause");
+}
+{
+    <IF>":" exp() <LB> (stmt()|epsilon()) <RB> (<ELSE> <LB> (stmt()|epsilon()) <RB> | epsilon() )
 }
 
 void ass_stmt() :
 {}
 {
-    <ID> <ASS> exp() ";"
+    <ID> <ASS> exp() <END>
 }
 
 void loop_stmt() :
 {}
 {
-    <WHILE> <LS> exp() <RS> <LB> stmt()
+    <WHILE> ":" exp() <LB> (stmt()|epsilon()) <RB>
 }
 
 void return_stmt() :
 {}
 {
-    <RETURN> exp() ";"
+    <RETURN> exp() <END>
 }
 
 void exp() :
 {}
 {
-    LOOKAHEAD(simple_exp())
-    simple_exp() <BL> simple_exp()
-    		| simple_exp() <EQ> simple_exp()
-    		| simple_exp() <AB> simple_exp()
-    		| simple_exp()
+    simple_exp() (<BL> simple_exp()
+    		| <EQ> simple_exp()
+    		| <AB> simple_exp()
+    		| epsilon() )
 }
 
 void simple_exp() :
@@ -189,7 +198,7 @@ void factor() :
 }
 
 void epsilon() : { } {
-    <EMPTY> <NON_EMPTY>
+    {}
 }
 
 
