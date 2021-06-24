@@ -3,7 +3,7 @@
 package grammar.generator;
 import java.io.*;
 
-class CMM_PARSER/*@bgen(jjtree)*/implements CMM_PARSERTreeConstants, CMM_PARSERConstants {/*@bgen(jjtree)*/
+public class CMM_PARSER/*@bgen(jjtree)*/implements CMM_PARSERTreeConstants, CMM_PARSERConstants {/*@bgen(jjtree)*/
   protected static JJTCMM_PARSERState jjtree = new JJTCMM_PARSERState();
     public static void main(String[] args) throws ParseException{
         CMM_PARSER parser = new CMM_PARSER(System.in);
